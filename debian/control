@@ -1,0 +1,21 @@
+Source: libnginx-mod-pagespeed
+Section: httpd
+Priority: optional
+Maintainer: Cyril Aknine <caknine@clever-age.com>
+Build-Depends: debhelper (>= 9~),
+               dpkg-dev (>= 1.16.1~),
+               quilt (>= 0.46-7~),
+               lsb-release,
+               libssl-dev (>= 0.9.7),
+               libpcre3-dev,
+               zlib1g-dev
+Standards-Version: 3.9.8.0
+Homepage: http://ngxpagespeed.com
+
+Package: libnginx-mod-pagespeed
+Architecture: amd64 i386
+Depends: ${misc:Depends}, ${shlibs:Depends}, nginx (= {NGINX_VERSION})
+Description: ngx_pagespeed speeds up your site and reduces
+ page load time by automatically applying web performance best practices
+ to pages and associated assets (CSS, JavaScript, images) without
+ requiring you to modify your existing content or workflow.

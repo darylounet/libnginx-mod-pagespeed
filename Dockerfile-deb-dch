@@ -1,0 +1,17 @@
+# Dockerfile for launching dch tool
+#
+# Usage (always use stretch as it is replaced before build) :
+#   docker build -t deb-dch -f Dockerfile-deb-dch .
+#   docker run -it -v $PWD:/local deb-dch bash -c '\
+#       dch -M -v 1.12.34.3+nginx-1.12.2-1~stretch --distribution "stretch" "Updated upstream."'
+#
+
+ARG DISTRIB=debian
+ARG RELEASE=stretch
+
+FROM debian:stretch
+MAINTAINER Cyril Aknine "caknine@clever-age.com"
+
+ENV TZ=Europe/Paris
+
+RUN apt-get update && apt-get --no-install-recommends --no-install-suggests -y install devscripts libdistro-info-perl

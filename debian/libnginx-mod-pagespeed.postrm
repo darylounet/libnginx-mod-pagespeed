@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+    purge)
+        rm -f /etc/nginx/conf.d/pagespeed.conf
+        rm -f /etc/nginx/modules/ngx_pagespeed.so
+        ;;
+    remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        ;;
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+esac
+
+#DEBHELPER#
+
+exit 0

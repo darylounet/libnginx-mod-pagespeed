@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+package = libnginx-mod-pagespeed
+
+%:
+	dh $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean
+	rm -f $(CURDIR)/objs
+
+override_dh_auto_configure:
+	./configure --add-dynamic-module=../ngx_pagespeed-${NPS_VERSION}-stable --with-compat
+
+override_dh_auto_build:
+	make modules
+
+override_dh_auto_install:
+	mkdir -p etc/nginx/modules
+	cp objs/ngx_pagespeed.so etc/nginx/modules
