@@ -12,7 +12,7 @@ clean:
 	rm -f $(CURDIR)/objs
 
 override_dh_auto_configure:
-	./configure --add-dynamic-module=../ngx_pagespeed-${NPS_VERSION}-stable --with-compat
+	./configure --add-dynamic-module=../ngx_pagespeed-${NPS_VERSION}-stable ${PS_NGX_EXTRA_FLAGS}
 
 override_dh_auto_build:
 	make modules

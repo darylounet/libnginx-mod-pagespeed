@@ -42,18 +42,10 @@ RUN apt-get update && apt-get --no-install-recommends --no-install-suggests -y i
     unzip make libpcre3-dev zlib1g-dev build-essential devscripts \
     debhelper quilt lsb-release libssl-dev lintian
 
-#RUN if [ "${RELEASE}" = "precise" ]; then \
-#        apt-get -y install gcc-mozilla && \
-#        PS_NGX_EXTRA_FLAGS="--with-cc=/usr/lib/gcc-mozilla/bin/gcc --with-ld-opt=-static-libstdc++" ;\
-#        apt-get --no-install-recommends --no-install-suggests -y install python-software-properties && \
-#        add-apt-repository ppa:ubuntu-toolchain-r/test && \
-#        apt-get update && \
-#        apt-get --no-install-recommends --no-install-suggests -y install gcc-4.8 && \
-#        update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 60 && \
-#        update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 80 && \
-#        update-alternatives --set gcc "/usr/bin/gcc-4.8" && \
-#        gcc --version ;\
-#    fi
+ARG PS_NGX_EXTRA_FLAGS=""
+RUN if [ "${RELEASE}" = "precise" ]; then \
+        apt-get -y install gcc-mozilla ;\
+    fi
 
 ARG NGINX_VERSION=1.12.2
 ARG NPS_VERSION=1.12.34.3
@@ -78,7 +70,8 @@ RUN sed -i "s/~stretch)/~${RELEASE})/g" nginx-${NGINX_VERSION}/debian/changelog
 RUN sed -i "s/{NGINX_VERSION}/${NGINX_VERSION}-1~${RELEASE}/g" nginx-${NGINX_VERSION}/debian/control
 
 #RUN cd nginx-${NGINX_VERSION} && debuild -us -uc
-RUN cd nginx-${NGINX_VERSION} && dpkg-buildpackage
+RUN if [ "${RELEASE}" = "precise" ]; then PS_NGX_EXTRA_FLAGS="--with-cc=/usr/lib/gcc-mozilla/bin/gcc --with-ld-opt=-static-libstdc++" ; fi && \
+    cd nginx-${NGINX_VERSION} && dpkg-buildpackage
 
 RUN mkdir /src && mv libnginx-mod-pagespeed* /src/ && cp nginx-${NGINX_VERSION}/debian/changelog /src/
 RUN dpkg -c /src/libnginx-mod-pagespeed_*.deb
@@ -88,7 +81,12 @@ RUN dpkg -c /src/libnginx-mod-pagespeed_*.deb
 RUN curl -L https://nginx.org/keys/nginx_signing.key | apt-key add -
 RUN echo "deb https://nginx.org/packages/${DISTRIB}/ ${RELEASE} nginx" >> /etc/apt/sources.list.d/nginx.list
 
-RUN apt-get update && apt-get --no-install-recommends --no-install-suggests -y install nginx=${NGINX_VERSION}-1~${RELEASE}
+RUN if [ "${RELEASE}" = "precise" ]; then \
+        curl -L https://packagecloud.io/DaryL/nginx-1-12-precise/gpgkey | apt-key add - && \
+        echo "deb https://packagecloud.io/DaryL/nginx-1-12-precise/ubuntu/ precise main" >> /etc/apt/sources.list.d/nginx-1-12-precise.list ;\
+    fi
+
+RUN apt-get update && apt-get -V --no-install-recommends --no-install-suggests -y install nginx=${NGINX_VERSION}-1~${RELEASE}
 
 RUN dpkg -i /src/libnginx-mod-pagespeed_*.deb
 RUN dpkg -r libnginx-mod-pagespeed

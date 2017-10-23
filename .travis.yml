@@ -25,7 +25,7 @@ script:
 env:
     matrix:
       - OS=ubuntu DIST=trusty
-#      - OS=ubuntu DIST=precise
+      - OS=ubuntu DIST=precise
       - OS=ubuntu DIST=xenial
 #      - OS=ubuntu DIST=yakkety
 #      - OS=debian DIST=jessie
