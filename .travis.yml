@@ -28,7 +28,7 @@ env:
       - OS=ubuntu DIST=precise
       - OS=ubuntu DIST=xenial
 #      - OS=ubuntu DIST=yakkety
-#      - OS=debian DIST=jessie
+      - OS=debian DIST=jessie
 #      - OS=debian DIST=wheezy
       - OS=debian DIST=stretch
 #      - OS=ubuntu DIST=xenial ARCH=i386
