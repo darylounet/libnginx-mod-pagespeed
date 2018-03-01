@@ -2,8 +2,8 @@
 #
 # Usage (always use stretch as it is replaced before build) :
 #   docker build -t deb-dch -f Dockerfile-deb-dch .
-#   docker run -it -v $PWD:/local deb-dch bash -c '\
-#       dch -M -v 1.12.34.3+nginx-1.12.2-1~stretch --distribution "stretch" "Updated upstream."'
+#   docker run -it -v $PWD:/local -e HOME=/local deb-dch bash -c 'cd /local && \
+#       dch -M -v 1.13.35.2+nginx-1.12.2-1~stretch --distribution "stretch" "Updated upstream."'
 #
 
 ARG DISTRIB=debian

@@ -4,15 +4,15 @@ cat <<BANNER
 -----------------------------------------------------------------------
 
 The PageSpeed dynamic module for nginx have been installed.
-The module activation is placed under /etc/nginx/conf.d/pagespeed.conf
+The module configuration is placed under /etc/nginx/conf.d/pagespeed.conf
 
-Alternatively, you can enable this module by add the following to nginx
+You have to enable this module by adding the following line to nginx
 configuration then reload nginx:
 
     load_module modules/ngx_pagespeed.so;
 
 Please refer to the PageSpeed module documentation for further details:
-https://ngxpagespeed.com/
+https://www.ngxpagespeed.com/
 
 -----------------------------------------------------------------------
 BANNER
