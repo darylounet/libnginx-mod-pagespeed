@@ -1,7 +1,7 @@
 
 Dockerfiles for building libnginx-mod-pagespeed for Debian / Ubuntu
 
-[![Build Status](https://travis-ci.org/darylounet/libnginx-mod-pagespeed.svg?branch=master)](https://travis-ci.org/darylounet/libnginx-mod-pagespeed)
+[![packagecloud deb packages](https://img.shields.io/badge/deb-packagecloud.io-844fec.svg)](https://packagecloud.io/DaryL/libnginx-mod-pagespeed) [![Build Status](https://travis-ci.org/darylounet/libnginx-mod-pagespeed.svg?branch=master)](https://travis-ci.org/darylounet/libnginx-mod-pagespeed)
 
 If you're just interested in installing built packages, go there :
 https://packagecloud.io/DaryL/libnginx-mod-pagespeed
@@ -15,7 +15,7 @@ DCH Dockerfile usage (always use stretch as it is replaced before build) :
 
 ```bash
 docker build -t deb-dch -f Dockerfile-deb-dch .
-docker run -it -v $PWD:/local deb-dch bash -c 'cd /local && \
+docker run -it -v $PWD:/local -e HOME=/local deb-dch bash -c 'cd /local && \
 dch -M -v 1.13.35.2+nginx-1.12.2-1~stretch --distribution "stretch" "Updated upstream."'
 ```
 
@@ -45,10 +45,10 @@ And once you don't need it anymore :
 docker rm $(docker ps -l -q)
 ```
 
-Get latest ngx_pagespeed version : https://github.com/pagespeed/ngx_pagespeed/releases
+Get latest ngx_pagespeed version : https://github.com/apache/incubator-pagespeed-ngx/releases
 Or :
 ```bash
-curl -s https://api.github.com/repos/pagespeed/ngx_pagespeed/tags |grep "name" |grep "stable" |head -1 |sed -n "s/^.*v\(.*\)-stable.*$/\1/p"
+curl -s https://api.github.com/repos/apache/incubator-pagespeed-ngx/tags |grep "name" |grep "stable" |head -1 |sed -n "s/^.*v\(.*\)-stable.*$/\1/p"
 ```
 
 Get latest nginx version : https://nginx.org/en/download.html
