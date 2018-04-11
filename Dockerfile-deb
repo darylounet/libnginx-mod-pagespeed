@@ -4,13 +4,13 @@
 #
 #   docker build -t build-nginx-pagespeed -f Dockerfile-deb \
 #       --build-arg DISTRIB=debian --build-arg RELEASE=stretch \
-#       --build-arg NGINX_VERSION=1.12.2 --build-arg NPS_VERSION=1.13.35.2 .
+#       --build-arg NGINX_VERSION=1.13.12 --build-arg NPS_VERSION=1.13.35.2 .
 #
 # Or Ubuntu :
 #
 #   docker build -t build-nginx-pagespeed -f Dockerfile-deb \
 #       --build-arg DISTRIB=ubuntu --build-arg RELEASE=xenial \
-#       --build-arg NGINX_VERSION=1.12.2 --build-arg NPS_VERSION=1.13.35.2 .
+#       --build-arg NGINX_VERSION=1.13.12 --build-arg NPS_VERSION=1.13.35.2 .
 #
 # Then :
 #
@@ -47,7 +47,7 @@ RUN if [ "${RELEASE}" = "precise" ]; then \
         apt-get -y install gcc-mozilla ;\
     fi
 
-ARG NGINX_VERSION=1.12.2
+ARG NGINX_VERSION=1.13.12
 ARG NPS_VERSION=1.13.35.2
 
 WORKDIR /root
@@ -80,7 +80,7 @@ RUN dpkg -c /src/libnginx-mod-pagespeed_*.deb
 #RUN lintian -i -I --show-overrides /src/libnginx-mod-pagespeed_*.changes
 
 RUN curl -L https://nginx.org/keys/nginx_signing.key | apt-key add -
-RUN echo "deb https://nginx.org/packages/${DISTRIB}/ ${RELEASE} nginx" >> /etc/apt/sources.list.d/nginx.list
+RUN echo "deb https://nginx.org/packages/mainline/${DISTRIB}/ ${RELEASE} nginx" >> /etc/apt/sources.list.d/nginx.list
 
 # libstdc++6-4.7-dev is needed to resolve this error on Ubuntu Precise 12.04 :
 # nginx: [emerg] dlopen() "/etc/nginx/modules/ngx_pagespeed.so" failed (/usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.18' not found

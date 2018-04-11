@@ -1,7 +1,7 @@
 
 Dockerfiles for building libnginx-mod-pagespeed for Debian / Ubuntu
 
-[![Build Status](https://travis-ci.org/darylounet/libnginx-mod-pagespeed.svg?branch=master)](https://travis-ci.org/darylounet/libnginx-mod-pagespeed)
+[![Build Status](https://travis-ci.org/darylounet/libnginx-mod-pagespeed.svg?branch=mainline)](https://travis-ci.org/darylounet/libnginx-mod-pagespeed)
 
 If you're just interested in installing built packages, go there :
 https://packagecloud.io/DaryL/libnginx-mod-pagespeed
@@ -16,7 +16,7 @@ DCH Dockerfile usage (always use stretch as it is replaced before build) :
 ```bash
 docker build -t deb-dch -f Dockerfile-deb-dch .
 docker run -it -v $PWD:/local deb-dch bash -c 'cd /local && \
-dch -M -v 1.13.35.2+nginx-1.12.2-1~stretch --distribution "stretch" "Updated upstream."'
+dch -M -v 1.13.35.2+nginx-1.13.12-1~stretch --distribution "stretch" "Updated upstream."'
 ```
 
 Build Dockerfile usage :
@@ -24,14 +24,14 @@ Build Dockerfile usage :
 ```bash
 docker build -t build-nginx-pagespeed -f Dockerfile-deb \
 --build-arg DISTRIB=debian --build-arg RELEASE=stretch \
---build-arg NGINX_VERSION=1.12.2 --build-arg NPS_VERSION=1.13.35.2 .
+--build-arg NGINX_VERSION=1.13.12 --build-arg NPS_VERSION=1.13.35.2 .
 ```
 
 Or for Ubuntu :
 ```bash
 docker build -t build-nginx-pagespeed -f Dockerfile-deb \
 --build-arg DISTRIB=ubuntu --build-arg RELEASE=xenial \
---build-arg NGINX_VERSION=1.12.2 --build-arg NPS_VERSION=1.13.35.2 .
+--build-arg NGINX_VERSION=1.13.12 --build-arg NPS_VERSION=1.13.35.2 .
 ```
 
 Then :
@@ -54,5 +54,5 @@ curl -s https://api.github.com/repos/pagespeed/ngx_pagespeed/tags |grep "name" |
 Get latest nginx version : https://nginx.org/en/download.html
 Or :
 ```bash
-curl -s https://nginx.org/packages/ubuntu/dists/xenial/nginx/binary-amd64/Packages.gz |zcat |php -r 'preg_match_all("#Package: nginx\nVersion: (.*?)-\d~.*?\nArch#", file_get_contents("php://stdin"), $m);echo implode($m[1], "\n")."\n";' |sort -r |head -1
+curl -s https://nginx.org/packages/mainline/ubuntu/dists/xenial/nginx/binary-amd64/Packages.gz|zcat |php -r 'preg_match_all("#Package: nginx\nVersion: (.*?)-\d~.*?\nArch#", file_get_contents("php://stdin"), $m);usort($m[1], 'version_compare'); echo array_reverse($m[1])[0]."\n";'
 ```

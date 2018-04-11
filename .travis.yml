@@ -25,7 +25,7 @@ script:
 env:
     matrix:
       - OS=ubuntu DIST=trusty
-      - OS=ubuntu DIST=precise
+#      - OS=ubuntu DIST=precise
       - OS=ubuntu DIST=xenial
 #      - OS=ubuntu DIST=yakkety
       - OS=debian DIST=jessie
@@ -42,7 +42,7 @@ deploy:
     dist: ${OS}/${DIST}
     skip_cleanup: true
     on:
-      branch: master
+      branch: mainline
       condition: -n "${OS}" && -n "${DIST}" && -n "${PACKAGECLOUD_TOKEN}"
   - provider: releases
     api_key:
@@ -51,4 +51,4 @@ deploy:
     file: ./*.deb
     skip_cleanup: true
     on:
-      branch: master
+      branch: mainline
