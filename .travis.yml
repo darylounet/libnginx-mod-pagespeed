@@ -25,8 +25,8 @@ script:
 env:
     matrix:
       - OS=ubuntu DIST=trusty
-#      - OS=ubuntu DIST=precise
       - OS=ubuntu DIST=xenial
+      - OS=ubuntu DIST=bionic
 #      - OS=ubuntu DIST=yakkety
       - OS=debian DIST=jessie
 #      - OS=debian DIST=wheezy
@@ -37,7 +37,7 @@ env:
 deploy:
   - provider: packagecloud
     username: ${PACKAGECLOUD_USER}
-    repository: ${PACKAGECLOUD_REPO}
+    repository: "libnginx-mod-pagespeed-mainline"
     token: ${PACKAGECLOUD_TOKEN}
     dist: ${OS}/${DIST}
     skip_cleanup: true
