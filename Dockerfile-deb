@@ -82,17 +82,6 @@ RUN dpkg -c /src/libnginx-mod-pagespeed_*.deb
 RUN curl -L https://nginx.org/keys/nginx_signing.key | apt-key add -
 RUN echo "deb https://nginx.org/packages/${DISTRIB}/ ${RELEASE} nginx" >> /etc/apt/sources.list.d/nginx.list
 
-# libstdc++6-4.7-dev is needed to resolve this error on Ubuntu Precise 12.04 :
-# nginx: [emerg] dlopen() "/etc/nginx/modules/ngx_pagespeed.so" failed (/usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.18' not found
-RUN if [ "${RELEASE}" = "precise" ]; then \
-        apt-get -y install software-properties-common python-software-properties && \
-        add-apt-repository -y ppa:ubuntu-toolchain-r/test && apt-get update && \
-        apt-get -y install libstdc++6-4.7-dev && \
-
-        curl -L https://packagecloud.io/DaryL/nginx-1-12-precise/gpgkey | apt-key add - && \
-        echo "deb https://packagecloud.io/DaryL/nginx-1-12-precise/ubuntu/ precise main" >> /etc/apt/sources.list.d/nginx-1-12-precise.list ;\
-    fi
-
 RUN apt-get update && apt-get -V --no-install-recommends --no-install-suggests -y install nginx=${NGINX_VERSION}-1~${RELEASE}
 
 RUN dpkg -i /src/libnginx-mod-pagespeed_*.deb && \
