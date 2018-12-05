@@ -4,13 +4,13 @@
 #
 #   docker build -t build-nginx-pagespeed -f Dockerfile-deb \
 #       --build-arg DISTRIB=debian --build-arg RELEASE=stretch \
-#       --build-arg NGINX_VERSION=1.14.1 --build-arg NPS_VERSION=1.13.35.2 .
+#       --build-arg NGINX_VERSION=1.14.2 --build-arg NPS_VERSION=1.13.35.2 .
 #
 # Or Ubuntu :
 #
 #   docker build -t build-nginx-pagespeed -f Dockerfile-deb \
 #       --build-arg DISTRIB=ubuntu --build-arg RELEASE=xenial \
-#       --build-arg NGINX_VERSION=1.14.1 --build-arg NPS_VERSION=1.13.35.2 .
+#       --build-arg NGINX_VERSION=1.14.2 --build-arg NPS_VERSION=1.13.35.2 .
 #
 # Then :
 #
@@ -44,7 +44,7 @@ RUN apt-get update && apt-get --no-install-recommends --no-install-suggests -y i
 
 ARG PS_NGX_EXTRA_FLAGS=""
 
-ARG NGINX_VERSION=1.14.1
+ARG NGINX_VERSION=1.14.2
 ARG NPS_VERSION=1.13.35.2
 
 WORKDIR /root
