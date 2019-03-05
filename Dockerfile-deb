@@ -76,7 +76,8 @@ RUN dpkg -c /src/libnginx-mod-pagespeed_*.deb
 #RUN lintian -i -I --show-overrides /src/libnginx-mod-pagespeed_*.changes
 
 RUN curl -L https://nginx.org/keys/nginx_signing.key | apt-key add -
-RUN echo "deb https://nginx.org/packages/${DISTRIB}/ ${RELEASE} nginx" >> /etc/apt/sources.list.d/nginx.list
+RUN echo "deb https://nginx.org/packages/mainline/${DISTRIB}/ ${RELEASE} nginx" >> /etc/apt/sources.list.d/nginx.list
+RUN echo "deb-src https://nginx.org/packages/mainline/${DISTRIB}/ ${RELEASE} nginx" >> /etc/apt/sources.list.d/nginx.list
 
 RUN apt-get update && apt-get -V --no-install-recommends --no-install-suggests -y install nginx=${NGINX_VERSION}-1~${RELEASE}
 
