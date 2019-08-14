@@ -1,3 +1,9 @@
+libnginx-mod-pagespeed (1.13.35.2+nginx-1.17.2-1~stretch) stretch; urgency=medium
+
+  * Updated NGiNX 1.17 upstream.
+
+ -- Cyril Aknine <caknine@clever-age.com>  Wed, 14 Aug 2019 18:38:34 +0200
+
 libnginx-mod-pagespeed (1.13.35.2+nginx-1.15.12-1~stretch) stretch; urgency=medium
 
   * Updated upstream.
