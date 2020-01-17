@@ -1,3 +1,8 @@
+libnginx-mod-pagespeed (1.13.35.2+nginx-1.17.7-1~stretch) stretch; urgency=medium
+
+  * Updated upstream.
+
+ -- Roman Ovchinnikov <coolthecold@gmail.com>  Fri, 17 Jan 2020 16:38:51 +0200
 libnginx-mod-pagespeed (1.13.35.2+nginx-1.16.1-1~stretch) stretch; urgency=medium
 
   * Updated upstream.
