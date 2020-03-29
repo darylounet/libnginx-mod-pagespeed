@@ -2,6 +2,11 @@ sudo: required
 services:
   - docker
 
+if: tag IS present
+branches:
+  except:
+  - /^untagged/
+
 cache:
     directories:
      - $HOME/.cache
@@ -53,3 +58,6 @@ deploy:
     skip_cleanup: true
     on:
       branch: mainline
+      tags: true
+    name: "pagespeed_${NPS_VERSION}+nginx_${NGINX_VERSION}"
+    tag_name: "pagespeed-${NPS_VERSION}/nginx-${NGINX_VERSION}"
