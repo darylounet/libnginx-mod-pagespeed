@@ -2,6 +2,11 @@ sudo: required
 services:
   - docker
 
+  if: tag IS present
+  branches:
+    except:
+    - /^untagged/
+  
 cache:
     directories:
      - $HOME/.cache
@@ -44,6 +49,7 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+      tags: true
       condition: -n "${OS}" && -n "${DIST}" && -n "${PACKAGECLOUD_TOKEN}"
   - provider: releases
     api_key:
@@ -53,3 +59,5 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+      tags: true
+    tag_name: $TRAVIS_TAG
