@@ -2,10 +2,10 @@ sudo: required
 services:
   - docker
 
-  if: tag IS present
-  branches:
-    except:
-    - /^untagged/
+if: tag IS present
+branches:
+  except:
+  - /^untagged/
   
 cache:
     directories:
