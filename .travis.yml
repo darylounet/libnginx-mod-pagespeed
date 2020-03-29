@@ -49,6 +49,7 @@ deploy:
     skip_cleanup: true
     on:
       branch: mainline
+      tags: true
       condition: -n "${OS}" && -n "${DIST}" && -n "${PACKAGECLOUD_TOKEN}"
   - provider: releases
     api_key:
@@ -59,5 +60,4 @@ deploy:
     on:
       branch: mainline
       tags: true
-    name: "pagespeed_${NPS_VERSION}+nginx_${NGINX_VERSION}"
-    tag_name: "pagespeed-${NPS_VERSION}/nginx-${NGINX_VERSION}"
+    tag_name: $TRAVIS_TAG
