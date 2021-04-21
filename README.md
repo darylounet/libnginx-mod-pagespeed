@@ -6,6 +6,8 @@ Dockerfiles for building libnginx-mod-pagespeed for Debian / Ubuntu
 If you're just interested in installing built packages, go there :
 https://packagecloud.io/DaryL/libnginx-mod-pagespeed
 
+/!\ Warning : these packages only works with official NGiNX Ubuntu / Debian repository : https://nginx.org/en/linux_packages.html#distributions
+
 Instructions : https://packagecloud.io/DaryL/libnginx-mod-pagespeed/install#manual-deb
 
 If you're interested in installing [mainline](https://packagecloud.io/DaryL/libnginx-mod-pagespeed-mainline) NGiNX packages, go there :

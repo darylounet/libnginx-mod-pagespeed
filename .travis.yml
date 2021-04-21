@@ -32,7 +32,7 @@ env:
       - OS=ubuntu DIST=focal
 #      - OS=debian DIST=jessie
 #      - OS=debian DIST=wheezy
-      - OS=debian DIST=stretch
+#      - OS=debian DIST=stretch
       - OS=debian DIST=buster
 #      - OS=ubuntu DIST=xenial ARCH=i386
 #      - OS=debian DIST=jessie ARCH=i386
