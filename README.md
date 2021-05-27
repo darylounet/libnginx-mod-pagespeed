@@ -1,7 +1,7 @@
 
 Dockerfiles for building libnginx-mod-pagespeed for Debian / Ubuntu
 
-[![packagecloud deb packages](https://img.shields.io/badge/deb-packagecloud.io-844fec.svg)](https://packagecloud.io/DaryL/libnginx-mod-pagespeed) [![Build Status](https://travis-ci.org/darylounet/libnginx-mod-pagespeed.svg?branch=master)](https://travis-ci.org/darylounet/libnginx-mod-pagespeed)
+[![packagecloud deb packages](https://img.shields.io/badge/deb-packagecloud.io-844fec.svg)](https://packagecloud.io/DaryL/libnginx-mod-pagespeed) [![Build and Deploy](https://github.com/darylounet/libnginx-mod-pagespeed/actions/workflows/github-actions.yml/badge.svg)](https://github.com/darylounet/libnginx-mod-pagespeed/actions/workflows/github-actions.yml)
 
 If you're just interested in installing built packages, go there :
 https://packagecloud.io/DaryL/libnginx-mod-pagespeed
