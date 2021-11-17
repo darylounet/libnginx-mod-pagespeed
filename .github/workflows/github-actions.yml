@@ -10,13 +10,13 @@ jobs:
       matrix:
         include:
           - os: ubuntu
-            dist: xenial
-          - os: ubuntu
             dist: bionic
           - os: ubuntu
             dist: focal
           - os: debian
             dist: buster
+          - os: debian
+            dist: bullseye
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -47,7 +47,7 @@ jobs:
           PRE_RELEASE: "false"
           CHANGELOG_FILE: "none"
           ALLOW_EMPTY_CHANGELOG: "true"
-          ALLOW_TAG_PREFIX: "true"
+          TAG_PREFIX_REGEX: ".*"
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
           asset_path: ./*.deb
