@@ -1,3 +1,9 @@
+libnginx-mod-pagespeed (1.13.35.2+nginx-1.21.4~bullseye) bullseye; urgency=medium
+
+  * Updated upstream.
+
+ -- Cyril Aknine <caknine@clever-age.com>  Wed, 17 Nov 2021 15:18:55 +0100
+
 libnginx-mod-pagespeed (1.13.35.2+nginx-1.19.4-1~stretch) stretch; urgency=medium
 
   * Updated upstream.

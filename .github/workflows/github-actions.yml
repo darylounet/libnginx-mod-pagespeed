@@ -1,0 +1,67 @@
+name: Build and Deploy
+on:
+  push:
+    tags:
+      - '**'
+jobs:
+  Build-And-Deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu
+            dist: bionic
+          - os: ubuntu
+            dist: focal
+          - os: debian
+            dist: buster
+          - os: debian
+            dist: bullseye
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Login to Docker Registry
+        run: docker login "$DOCKER_REGISTRY" -u "$DOCKER_USERNAME" --password-stdin <<< "$DOCKER_PASSWORD"
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+      - name: Launch build script
+        env:
+          OS: ${{ matrix.os }}
+          DIST: ${{ matrix.dist }}
+        run: |
+          ./build.sh
+      - name: Copy and prepare artifacts
+        run: |
+          mkdir -p build && \
+          docker run build-nginx-pagespeed && \
+          docker cp $(docker ps -l -q):/src build/ && \
+          mv build/src/*.deb ./ && \
+          rm -Rf build
+      - name: Deploy to GitHub Releases
+        uses: docker://antonyurchenko/git-release:latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRAFT_RELEASE: "true"
+          PRE_RELEASE: "false"
+          CHANGELOG_FILE: "none"
+          ALLOW_EMPTY_CHANGELOG: "true"
+          TAG_PREFIX_REGEX: ".*"
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./*.deb
+      - name: Deploy to GitHub Releases
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: "./*.deb"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          omitBodyDuringUpdate: true
+      - name: Deploy to packagecloud
+        uses: docker://lpenz/ghaction-packagecloud:v0.1
+        with:
+          user: ${{ secrets.PACKAGECLOUD_USER }}
+          repository: ${{ secrets.PACKAGECLOUD_MAINLINE_REPO }}/${{ matrix.os }}/${{ matrix.dist }}
+        env:
+          PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}

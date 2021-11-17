@@ -5,7 +5,7 @@ NGINX_DEB_VERSION=`curl -s https://nginx.org/packages/mainline/debian/pool/nginx
 
 docker build --pull -t deb-dch -f Dockerfile-deb-dch .
 docker run -it -v $PWD:/local -e HOME=/local deb-dch bash -c "cd /local && \
-    dch -M -v ${NPS_VERSION}+nginx-${NGINX_DEB_VERSION}~stretch --distribution 'stretch' 'Updated upstream.'"
+    dch -b -M -v ${NPS_VERSION}+nginx-${NGINX_DEB_VERSION}~bullseye --distribution 'bullseye' 'Updated upstream.'"
 
 git add debian/changelog
 git commit -m "Updated upstream."
