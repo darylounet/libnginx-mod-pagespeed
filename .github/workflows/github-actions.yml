@@ -13,6 +13,8 @@ jobs:
             dist: bionic
           - os: ubuntu
             dist: focal
+#          - os: ubuntu
+#            dist: jammy
           - os: debian
             dist: buster
           - os: debian
