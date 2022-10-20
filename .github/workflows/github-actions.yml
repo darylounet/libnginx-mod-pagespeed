@@ -14,8 +14,6 @@ jobs:
           - os: ubuntu
             dist: focal
           - os: debian
-            dist: buster
-          - os: debian
             dist: bullseye
     steps:
       - name: Check out repository code
